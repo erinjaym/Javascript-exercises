@@ -1,17 +1,22 @@
 
 const palindromes = function(words) {
+    let filteredString = words.toLowerCase();
+    filteredString = filteredString.replace(/[^A-Z]/ig, ""); 
+    let reversedString = filteredString.split(""); 
+    reversedString = reversedString.reverse();
+    reversedString = reversedString.join('');
+    return reversedString === filteredString;
     
-// Easy route is .split .join and .reverse and .replace
+    /* My Original code 
 
-    //Setup filter for to grab only necessary information
-    let filter = /\w/g;
+    //Setup filter to grab only necessary information
+     let filter = /\w/g;
     const wordsFilter = words.match(filter);  
     let wordsFiltered = "";
 
     //reconstruct into a string with only necessary information
     for (x = 0; x < wordsFilter.length; x++){
         wordsFiltered += wordsFilter[x]; 
-
     }
 
     // reverse the word or words after being filtered and test if palindrome
@@ -20,6 +25,8 @@ const palindromes = function(words) {
         {
         wordReverse += wordsFilter[x]; 
         }
-        return wordReverse.toLowerCase() === wordsFiltered.toLowerCase();
+        return wordReverse.toLowerCase() === wordsFiltered.toLowerCase(); */
+
 }
+
 module.exports = palindromes
