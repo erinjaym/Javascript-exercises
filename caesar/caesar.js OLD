@@ -1,0 +1,169 @@
+const caesar = function(string, shiftAmount) {
+    let filter = /\W/g;
+    let filter2 = /\s/g;
+    let stringToNumber = [];
+    let ciphered = "";
+   let isCapital = /[A-Z]/;
+
+
+    
+    for (letter = 0; letter < string.length; letter++)
+    {
+        let currentLetter = string.charCodeAt([letter]);
+  
+        if (string[letter].match(filter) || string[letter].match(filter2)) // fiter uneccessary
+        { 
+
+            ciphered += string[letter];
+        } 
+
+        else if (isCapital.test(string[letter]) ) //for Capital letters 
+        { 
+            let lowerLetter = string[letter].toLowerCase();
+            console.log(lowerLetter);
+            let currentLetter = string.charCodeAt(lowerLetter);
+            console.log(currentLetter);
+
+                if ((currentLetter + shiftAmount) < 97) /// n downward shift 
+                {
+                    if (currentLetter == 97) 
+                    {
+                        ciphered += downwardShift(shiftAmount + 1);
+                    }
+                    else 
+                    { 
+                        let theShift = shiftAmount;
+                        for (currentLetter; currentLetter < 97; currentLetter--)
+                        {
+                            theShift += 1;
+                        }
+                        ciphered += downwardShift(theShift);
+                    }
+                }
+                else if ((currentLetter + shiftAmount) > 122 ) // need upward shift
+                {
+                
+                    if (currentLetter == 122)
+                    {
+                    upwardShift(shiftAmmount -1);
+                    }
+                    else
+                    {
+                        
+                        let theShift = shiftAmount;
+                        for (currentLetter; currentLetter < 122; currentLetter++)
+                        {
+                            theShift -= 1;
+                        }
+                        ciphered += upwardShift(theShift -1);
+                    }
+                }
+                else
+                {
+                    ciphered += String.fromCharCode((string.charCodeAt([letter]) + shiftAmount)); 
+                }
+        }
+
+        else { // Find out upper or lower case 
+            if ( currentLetter >= 97 && currentLetter <= 122) // is lowercase
+                {
+                    if ((currentLetter + shiftAmount) < 97) /// need to take to 97 then downward shift 
+                    {
+                        if (currentLetter == 97) {
+                            ciphered += downwardShift(shiftAmount + 1);
+                        }
+                        else { 
+                            let theShift = shiftAmount;
+                            for (currentLetter; currentLetter < 97; currentLetter--){
+                                theShift += 1;
+                            }
+                            ciphered += downwardShift(theShift);
+                        }
+
+
+                    }
+                    else if ((currentLetter + shiftAmount) > 122 ) // need upward shift
+                    {
+                    
+                        if (currentLetter == 122){
+                        upwardShift(shiftAmmount -1);
+                        }
+                        else{
+                            
+                            let theShift = shiftAmount;
+                            for (currentLetter; currentLetter < 122; currentLetter++){
+                                theShift -= 1;
+                            }
+                            ciphered += upwardShift(theShift -1);
+                        }
+                    }
+                    else
+                    {
+                        ciphered += String.fromCharCode((string.charCodeAt([letter]) + shiftAmount)); 
+                    }
+                }
+            
+
+
+        }
+    }
+
+
+// create uppercase conversion to lower case numbers  downward and upward only work with 122 - 97 
+ // ciphered += (upwardShift(theShift -1).toUpperCase);) ...etc
+
+
+
+function downwardShift(shift){
+    console.log(shift);
+    let currentLetter = 122;
+    let shiftAmount = shift;
+
+    if ( shiftAmount == 0){
+        return String.fromCharCode(currentLetter);
+    }
+
+    else {
+        for (currentLetter; currentLetter > 97 && shiftAmount != 0; currentLetter--){
+            shiftAmount += 1;
+        }
+            if ( shiftAmount == 0){
+            return String.fromCharCode(currentLetter);
+            }
+            else if (currentLetter == 97) {
+                 return downwardShift(shiftAmount);
+             }
+
+    }
+}
+
+
+function upwardShift(shift){ 
+    console.log(shift);
+    let currentLetter = 97;
+    let shiftAmount = shift;
+
+    if ( shiftAmount == 0){
+        return String.fromCharCode(currentLetter);
+    }
+
+    else {
+        for (currentLetter; currentLetter < 122 && shiftAmount != 0; currentLetter++){
+            shiftAmount -= 1;
+        }
+            if ( shiftAmount == 0){
+            return String.fromCharCode(currentLetter);
+            }
+            else if (currentLetter == 122) {
+                 return upwardShift(shiftAmount);
+             }
+    }
+}
+
+    console.log(ciphered);
+    return ciphered;
+}
+
+caesar('A', 1);
+
+module.exports = caesar
